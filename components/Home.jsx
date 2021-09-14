@@ -6,12 +6,10 @@ import axios from 'react-native-axios';
 import {useEffect,useState} from 'react';
 function Home() {
     const [data,setData] = useState([]);
-    console.log(data);
     useEffect(()=>{
         for(let i=1;i<=5;i++){
             axios('https://anime5311.herokuapp.com/api/popular/'+i)
             .then(body=>{
-                console.log(body.data.results);
                 body.data.results.forEach(items=>{
                     setData(prev=>[...prev,items])
                 })
@@ -19,7 +17,7 @@ function Home() {
         }
     },[])
     return (
-        <div>
+        <View style={styles.parent}>
             <FlatGrid
                 itemDimension={200}
                 data={data}
@@ -31,7 +29,7 @@ function Home() {
                     )
                 }}
             />
-        </div>
+        </View>
     )
 }
 
@@ -39,6 +37,9 @@ const styles = StyleSheet.create({
     container:{
         alignItems:'center',
         justifyContent:'center',
+    },
+    parent:{
+        backgroundColor:'hsl(0, 1%, 15%)',
     }
 })
 
