@@ -1,23 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import {useState} from 'react';
+import { AppRegistry } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
-import { BrowserRouter as Router,Route } from 'react-router-dom';
+import { NativeRouter,Route } from 'react-router-native';
 import Home from './components/Home';
+import Info from './components/Info'
+import Header from './components/Header';
+
 export default function App() {
+  const [data,setData] = useState([]);
   return (
-    <Router>
-      <Route path='/' exact>
-          <Home/>
+    <NativeRouter>
+    <Route path='/' exact>
+    <Header data={data} setData={setData} />
+        <Home data={data} setData={setData} />
       </Route>
-    </Router>
+      <Route path='/info/:id' exact>
+      <Header data={data} setData={setData} />
+        <Info/>
+      </Route>
+    </NativeRouter>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
